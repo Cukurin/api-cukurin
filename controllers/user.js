@@ -1,5 +1,5 @@
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const UserImage = require("../models/userImage");
 
@@ -18,9 +18,9 @@ module.exports = {
         bcyrpt.hash(req.body.password, salt, async function(err, hash) {
           if (!err) {
             const newUser = await User.create({
-              name: req.body.name,
+              firstName: req.body.firstName,
+              lastName: req.body.Lastname,
               email: req.body.email,
-              phoneNumber: req.body.phoneNumber,
               password: hash
             });
 
@@ -43,7 +43,7 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const existedUser = await User.findOne({ name: req.body.name });
+      const existedUser = await User.findOne({ eamil: req.body.email });
       const valid = bcrypt.compareSycn(req.body.password, existedUser.password);
 
       if (valid) {
@@ -68,7 +68,7 @@ module.exports = {
     console.log("masuk");
 
     User.find({})
-      .populate("address", "address -_id")
+      // .populate("address", "address -_id")
       .then(result => {
         res.send(result);
       })
@@ -95,10 +95,10 @@ module.exports = {
     User.findOneAndUpdate(
       { _id: req.params.id },
       {
-        name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         password: req.body.password,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber
+        email: req.body.email
       },
       function(err, result) {
         if (err) {
