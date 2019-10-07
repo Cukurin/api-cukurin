@@ -6,7 +6,6 @@ const db = require("./database");
 const { PORT } = require("./config/variableEnv");
 
 const userRouter = require("./routes/user")
-const addressRouter = require("./routes/address")
 const app = express();
 const port = PORT || 3000;
 
@@ -22,7 +21,6 @@ db.then(() => {
 });
 
 app.use("/user", userRouter)
-app.use("/address", addressRouter)
 
 
 app.listen(port, () => {
