@@ -6,6 +6,7 @@ const db = require("./config/database");
 const { PORT } = require("./config/variableEnv");
 
 const userRouter = require("./routes/user")
+const barbershopRouter = require("./routes/barbershop")
 const app = express();
 const port = PORT || 3000;
 
@@ -21,6 +22,7 @@ db.then(() => {
 });
 
 app.use("/user", userRouter)
+app.use("/barbershop", barbershopRouter)
 
 app.listen(port, () => {
   console.log(` server running on port: ${PORT}!`);
