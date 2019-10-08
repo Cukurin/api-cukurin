@@ -13,6 +13,15 @@ module.exports = {
       .catch(error => console.log(error));
   },
 
+  getBarberShop: (req, res) => {
+    Barbershops.findOne({ _id: objectId( req.params._id) })
+      // .populate("address", "address -_id")
+      .then(result => {
+        res.send(result);
+      })
+      .catch(error => console.log(error))
+  },
+
   addBarberShop: async (req, res) => {
     try {
       const newBarberShop = await Barbershops.create({
@@ -37,31 +46,8 @@ module.exports = {
     }
   },
 
-  login: async (req, res) => {
-    try {
-      const existedUser = await User.findOne({ eamil: req.body.email });
-      const valid = bcrypt.compareSycn(req.body.password, existedUser.password);
-
-      if (valid) {
-        const token = await jwt.toString(
-          { data: existedUser },
-          "jangansampaioranglaintau",
-          {
-            expresin: "1h"
-          }
-        );
-        res.send({ message: "password is not valid" });
-      }
-    } catch (error) {
-      res.send({
-        error: true,
-        message: error.message
-      });
-    }
-  },
-
-  deleteUser: (req, res) => {
-    User.deleteOne(
+  deleteBarberShop: (req, res) => {
+    Barbershops.deleteOne(
       {
         _id: req.params.id
       },
@@ -76,8 +62,8 @@ module.exports = {
     );
   },
 
-  updateUser: (req, res) => {
-    User.findOneAndUpdate(
+  updateBarberShop: (req, res) => {
+    Barbershops.findOneAndUpdate(
       { _id: req.params.id },
       {
         firstName: req.body.firstName,

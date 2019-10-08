@@ -10,6 +10,7 @@ var bookingsSchema = new Schema({
       type:Schema.Types.ObjectId,
       ref: 'barbershop'
     },
+    services :[String]
 },
 { timestamps: true }
 );
