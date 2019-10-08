@@ -1,43 +1,56 @@
-const bcrypt = require("bcryptjs");
+const objectId = require("mongodb").ObjectID;
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const UserImage = require("../models/userImage");
 
 module.exports = {
+  getAllUser: (req, res) => {
+    User.find({})
+      // .populate("address", "address -_id")
+      .then(result => {
+        res.send(result);
+      })
+      .catch(error => console.log(error));
+  },
+
   addUser: async (req, res) => {
     try {
-      const existedUser = await user.findone({ name: req.body.name });
+      const existedUser = await User.findOne({ email: req.body.email });
 
       if (existedUser) {
-        req.status(404).send({
+        res.status(404).send({
           message: "user already exist, please continue to login"
         });
-      }
-
-      bcyrpt.genSalt(10, function(err, salt) {
-        bcyrpt.hash(req.body.password, salt, async function(err, hash) {
-          if (!err) {
-            const newUser = await User.create({
-              firstName: req.body.firstName,
-              lastName: req.body.Lastname,
-              email: req.body.email,
-              password: hash
-            });
-
-            res.status(200).send({
-              message: "user created",
-              newUser
-            });
-          } else {
-            res.send({
-              message: `Password is invalid`
-            });
-          }
+      } else {
+        bcrypt.genSalt(10, function(err, salt) {
+          bcrypt.hash(req.body.password, salt, async function(err, hash) {
+            try {
+              const newUser = await User.create({
+                name: req.body.name,
+                phoneNumber: req.body.phoneNumber,
+                email: req.body.email,
+                password: hash
+              });
+  
+              res.status(200).send({
+                message: "user created",
+                newUser
+              });
+            } catch (error) {
+              res.send({
+                message: `Password is invalid`,
+                error: error.message
+              });
+            }
+          });
         });
-      });
+      }
     } catch (error) {
-      console.log(err);
-      console.log(error);
+      res.status(400).send({
+        message: "user failed to create",
+        error: error.message
+      });
     }
   },
 
@@ -62,17 +75,6 @@ module.exports = {
         message: error.message
       });
     }
-  },
-
-  getUser: (req, res) => {
-    console.log("masuk");
-
-    User.find({})
-      // .populate("address", "address -_id")
-      .then(result => {
-        res.send(result);
-      })
-      .catch(error => console.log(error));
   },
 
   deleteUser: (req, res) => {

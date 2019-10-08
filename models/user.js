@@ -1,10 +1,10 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 var userSchema = new Schema(
   {
-    firstName: String,
-    lastName: String,
+    name: String,
+    phoneNumber:String,
     email: String,
     password: String,
     bookings: [
@@ -16,6 +16,6 @@ var userSchema = new Schema(
   },
   { timestamps: true }
 );
-const User = mongoose.model("users", userSchema);
 
+const User = mongoose.model("users", userSchema);
 module.exports = User;

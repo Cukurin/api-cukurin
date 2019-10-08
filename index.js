@@ -2,7 +2,7 @@ require("dotenv").config()
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const db = require("./database");
+const db = require("./config/database");
 const { PORT } = require("./config/variableEnv");
 
 const userRouter = require("./routes/user")
@@ -21,7 +21,6 @@ db.then(() => {
 });
 
 app.use("/user", userRouter)
-
 
 app.listen(port, () => {
   console.log(` server running on port: ${PORT}!`);
