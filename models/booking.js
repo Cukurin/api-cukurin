@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 var bookingsSchema = new Schema({
-  
     user: {
       type:Schema.Types.ObjectId,
       ref: 'users'
@@ -11,14 +10,9 @@ var bookingsSchema = new Schema({
       type:Schema.Types.ObjectId,
       ref: 'barbershop'
     },
-    services: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Services'
-    }]
-
 },
 { timestamps: true }
 );
 
-const Bookings = mongoose.model("Bookings", bookingsSchema);
+const Bookings = mongoose.model("bookings", bookingsSchema);
 module.exports = Bookings;

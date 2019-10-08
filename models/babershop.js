@@ -6,10 +6,10 @@ var barberShopSchema = new Schema({
   address: String,
   phoneNumber: Number,
   rating: Number,
-  lat: Number,
-  lng: Number,
-  services: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Services'
-  }]
+  latitude: Number,
+  longitude: Number,
+  services: [String]
 })
+
+const BarberShop = mongoose.model("barbershops", barberShopSchema);
+module.exports = BarberShop;
