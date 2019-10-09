@@ -50,25 +50,33 @@ module.exports = {
     }
   },
 
-  deleteBarberShop: (req, res) => {
-    Barbershops.deleteOne(
-      {
-        _id: objectId(req.params.id)
-      },
-      (err, result) => {
-        try {
-          res.status(200).send({
-            message: 'Success delete barber',
-            result
-          });
-        } catch (error) {
-          res.status(400).send({
-            message: err,
-            error: error.message
-          });
+  deleteBarberShop: async (req, res) => {
+    const existedBarber = await Barbershops.findOne({ _id: objectId(req.params.id)})
+
+    if (existedBarber){
+      Barbershops.findOneAndDelete(
+        {
+          _id: objectId(req.params.id)
+        },
+        (err, result) => {
+          try {
+            res.status(200).send({
+              message: 'Success delete barber',
+              result
+            });
+          } catch (error) {
+            res.status(400).send({
+              message: err,
+              error: error.message
+            });
+          }
         }
-      }
-    );
+      );
+    } else {
+      res.status(400).send({
+        message: 'BarberShop is not found',
+      });
+    }
   },
 
   updateBarberShop: (req, res) => {
@@ -90,18 +98,6 @@ module.exports = {
             error: error.message
           });
         }
-
-        // if (err) {
-        //   res.status(400).send({
-        //     message: `error`,
-        //     err
-        //   });
-        // } else {
-        //   res.status(200).send({
-        //     message: `update success`,
-        //     result
-        //   });
-        // }
 
       }
     );
