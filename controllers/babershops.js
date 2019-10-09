@@ -10,5 +10,10 @@ module.exports = {
       res.send(result);
     })
     .catch(error => console.log(error))
+  },
+  addBarberShop: (req, res) => {
+    const newShop = Barbershops.create({
+      name: req.body.name 
+    })
   }
 }
