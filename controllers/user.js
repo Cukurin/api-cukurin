@@ -19,8 +19,11 @@ module.exports = {
       const existedUser = await User.findOne({ email: req.body.email });
 
       if (existedUser) {
+        console.log(error)
         res.status(404).send({
-          message: "user already exist, please continue to login"
+          message: "user already exist, please continue to login",
+          error: error.message,
+          
         });
       } else {
         bcrypt.genSalt(10, function(err, salt) {
