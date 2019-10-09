@@ -10,6 +10,7 @@ var barberShopSchema = new Schema({
   longitude: Number,
   services: [String],
   imageUrl: String
+  
 })
 
 const BarberShop = mongoose.model("barbershops", barberShopSchema);
