@@ -4,7 +4,7 @@ module.exports = {
   tokenValid: (req, res, next) => {
     console.log(req.headers);
     jwt.verify(req.headers.authorization.split("")[1]),
-    "jangansampaiorangtau", function(
+    "secretbycukurin", function(
       err,
         decoded
     ){
