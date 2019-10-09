@@ -8,7 +8,8 @@ var barberShopSchema = new Schema({
   rating: Number,
   latitude: Number,
   longitude: Number,
-  services: [String]
+  services: [String],
+  imageUrl: String
 })
 
 const BarberShop = mongoose.model("barbershops", barberShopSchema);
