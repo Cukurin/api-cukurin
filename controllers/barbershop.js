@@ -31,10 +31,11 @@ module.exports = {
         name: req.body.name,
         phoneNumber: req.body.phoneNumber,
         address: req.body.address,
-        latitude: req.body.latitude,
-        longitude: req.body.longitude,
+        lat: req.body.latitude,
+        lng: req.body.longitude,
         rating: req.body.rating,
-        services: req.body.services
+        services: req.body.services,
+        imageUrl: req.body.imageUrl
       });
 
       res.status(200).send({
@@ -52,14 +53,19 @@ module.exports = {
   deleteBarberShop: (req, res) => {
     Barbershops.deleteOne(
       {
-        _id: req.params.id
+        _id: objectId(req.params.id)
       },
       (err, result) => {
         try {
-          res.send(result);
-        } catch (err) {
-          console.log(error);
-          console.log(err);
+          res.status(200).send({
+            message: 'Success delete barber',
+            result
+          });
+        } catch (error) {
+          res.status(400).send({
+            message: err,
+            error: error.message
+          });
         }
       }
     );
@@ -67,25 +73,36 @@ module.exports = {
 
   updateBarberShop: (req, res) => {
     Barbershops.findOneAndUpdate(
-      { _id: req.params.id },
+      { _id: objectId(req.params.id)},
       {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: req.body.password,
-        email: req.body.email
+        name: req.body.name,
+        address: req.body.address
       },
-      function(err, result) {
-        if (err) {
-          res.status(400).send({
-            message: `error`,
-            err
-          });
-        } else {
+      (err, result) => {
+        try {
           res.status(200).send({
             message: `update success`,
             result
           });
+        } catch (error) {
+          res.status(400).send({
+            message: err,
+            error: error.message
+          });
         }
+
+        // if (err) {
+        //   res.status(400).send({
+        //     message: `error`,
+        //     err
+        //   });
+        // } else {
+        //   res.status(200).send({
+        //     message: `update success`,
+        //     result
+        //   });
+        // }
+
       }
     );
   },
