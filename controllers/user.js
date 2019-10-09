@@ -32,7 +32,7 @@ module.exports = {
                 email: req.body.email,
                 password: hash
               });
-  
+
               res.status(200).send({
                 message: "user created",
                 newUser
@@ -56,23 +56,26 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const existedUser = await User.findOne({ eamil: req.body.email });
-      const valid = bcrypt.compareSycn(req.body.password, existedUser.password);
+      const existedUser = await User.findOne({ email: req.body.email });
+      const valid = bcrypt.compareSync(req.body.password, existedUser.password);
 
       if (valid) {
-        const token = await jwt.toString(
-          { data: existedUser },
-          "jangansampaioranglaintau",
-          {
-            expresin: "1h"
-          }
-        );
-        res.send({ message: "password is not valid" });
+        const token = await jwt.sign({ data: existedUser }, "secretbycukurin", {
+          expiresIn: "1h"
+        });
+        res.send({
+          message: "success to login",
+          token
+        });
+      } else {
+        res.send({
+          message: "user or password is not valid"
+        });
       }
     } catch (error) {
       res.send({
-        error: true,
-        message: error.message
+        message: "User not found",
+        error: error.message
       });
     }
   },
