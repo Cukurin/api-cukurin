@@ -1,55 +1,56 @@
-const objectId = require('mongodb').ObjectID;
-const bcrypt = require('bcrypt');
-
-const Barbershops = require('../models/barbershop')
+const objectId = require("mongodb").ObjectID;
+const Appointment = require("../models/appointment");
 
 module.exports = {
-  getAllBarberShop: (req, res) => {
-    Barbershops.find({})
+  getAllAppointment: (req, res) => {
+    Appointment.find({})
       // .populate("address", "address -_id")
       .then(result => {
         res.send(result);
       })
-      .catch(error => console.log(error));
-  },
-
-  getOneBarberShop: (req, res) => {
-    Barbershops.findOne({ 
-      _id: objectId(req.params.id) 
-      // name: req.params.name
-    })
-      // .populate("address", "address -_id")
-      .then(result => {
-        res.send(result);
-      })
-      .catch(error => console.log(error))
-  },
-
-  addBarberShop: async (req, res) => {
-    try {
-      const newBarberShop = await Barbershops.create({
-        name: req.body.name,
-        phoneNumber: req.body.phoneNumber,
-        address: req.body.address,
-        latitude: req.body.latitude,
-        longitude: req.body.longitude,
-        rating: req.body.rating,
-        services: req.body.services
+      .catch(error => {
+        res.status(400).send({
+          message: "There is no Appointment",
+          error: error.message
+        });
       });
+  },
 
+  getOneAppointment: (req, res) => {
+    Appointment.findOne({ _id: objectId(req.body.id) })
+      // .populate("address", "address -_id")
+      .then(result => {
+        res.send(result);
+      })
+      .catch(error => {
+        res.status(400).send({
+          message: "Appointment not found",
+          error: error.message
+        });
+      });
+  },
+
+  //create new booking
+  addAppointment: (req, res) => {
+    try {
+      const newBook = Bookings.create({
+        name: req.body.name,
+        barbershop: req.body.barbershop,
+        sevices: req.body.services
+      });
       res.status(200).send({
-        message: "BarberShop created",
-        newBarberShop
+        message: "Booking berhasil dibuat",
+        newBook
       });
     } catch (error) {
       res.status(400).send({
-        message: "BarberShop failed to create",
+        message: "Booking gagal dibuat",
         error: error.message
       });
     }
   },
-
-  deleteBarberShop: (req, res) => {
+  
+  deleteAppointment: (req, res) => {
     Barbershops.deleteOne(
       {
         _id: req.params.id
@@ -65,8 +66,8 @@ module.exports = {
     );
   },
 
-  updateBarberShop: (req, res) => {
-    Barbershops.findOneAndUpdate(
+  updateAppointment: (req, res) => {
+    Appointment.findOneAndUpdate(
       { _id: req.params.id },
       {
         firstName: req.body.firstName,
@@ -89,5 +90,4 @@ module.exports = {
       }
     );
   },
-
-}
+};

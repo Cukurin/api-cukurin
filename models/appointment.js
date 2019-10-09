@@ -1,19 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-var bookingsSchema = new Schema({
+var appointmentSchema = new Schema({
     user: {
       type:Schema.Types.ObjectId,
       ref: 'users'
     },
     barbershop : {
       type:Schema.Types.ObjectId,
-      ref: 'barbershop'
+      ref: 'barbershops'
     },
-    services :[String]
+    services :String,
+    isDone: Boolean 
 },
 { timestamps: true }
 );
 
-const Bookings = mongoose.model("bookings", bookingsSchema);
-module.exports = Bookings;
+const Appointment = mongoose.model("appointments", appointmentSchema);
+module.exports = Appointment;
