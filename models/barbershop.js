@@ -6,8 +6,8 @@ var barberShopSchema = new Schema({
   address: String,
   phoneNumber: Number,
   rating: Number,
-  latitude: Number,
-  longitude: Number,
+  lat: Number,
+  lng: Number,
   services: [String],
   imageUrl: String
   
