@@ -10,19 +10,29 @@ module.exports = {
       .then(result => {
         res.send(result);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        res.status(400).send({
+          message: "There is no Barbershop",
+          error: error.message
+        });
+      });
   },
 
   getOneBarberShop: (req, res) => {
+    console.log(req.query)
     Barbershops.findOne({ 
       _id: objectId(req.params.id) 
-      // name: req.params.name
     })
       // .populate("address", "address -_id")
       .then(result => {
         res.send(result);
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        res.status(400).send({
+          message: "Barbershop not found",
+          error: error.message
+        });
+      })
   },
 
   addBarberShop: async (req, res) => {
@@ -98,7 +108,6 @@ module.exports = {
             error: error.message
           });
         }
-
       }
     );
   },

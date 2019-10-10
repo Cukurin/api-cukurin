@@ -7,7 +7,7 @@ const UserImage = require("../models/userImage");
 module.exports = {
   getAllUser: (req, res) => {
     User.find({})
-      // .populate("address", "address -_id")
+      // .populate("appointments", "-user -createdAt -updatedAt")
       .then(result => {
         res.send(result);
       })
@@ -30,7 +30,7 @@ module.exports = {
           bcrypt.hash(req.body.password, salt, async function(err, hash) {
             try {
               const newUser = await User.create({
-                name: req.body.name,
+                username: req.body.username,
                 phoneNumber: req.body.phoneNumber,
                 email: req.body.email,
                 password: hash

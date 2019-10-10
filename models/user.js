@@ -7,10 +7,10 @@ var userSchema = new Schema(
     phoneNumber:String,
     email: String,
     password: String,
-    bookings: [
+    appointments: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Bookings"
+        ref: "appointments"
       }
     ]
   },

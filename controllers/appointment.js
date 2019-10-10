@@ -1,4 +1,7 @@
 const objectId = require("mongodb").ObjectID;
+
+const User = require('../models/user')
+const Barbershops = require('../models/barbershop')
 const Appointment = require("../models/appointment");
 
 module.exports = {
@@ -31,20 +34,34 @@ module.exports = {
   },
 
   //create new booking
-  addAppointment: (req, res) => {
+  addAppointment: async (req, res) => {
     try {
-      const newBook = Bookings.create({
-        name: req.body.name,
-        barbershop: req.body.barbershop,
-        sevices: req.body.services
+
+      const getUser = await User.findOne({ _id: objectId(req.body.user) })
+      const getBarbershop = await Barbershops.findOne({ _id: objectId(req.body.barbershop) })
+
+      const newAppointment = await Appointment.create({
+        user: getUser,
+        barbershop: getBarbershop,
+        service: req.body.service,
+        date: req.body.date,
+        isDone: req.body.isDone
       });
+
+      const user = await User.findOneAndUpdate(
+        {_id: objectId(req.body.user)},
+        {$push: {appointments: newAppointment._id}},
+        {new : true}
+      )
+
       res.status(200).send({
-        message: "Booking berhasil dibuat",
-        newBook
+        message: "Appointment has been created",
+        newAppointment,
+        user,
       });
     } catch (error) {
       res.status(400).send({
-        message: "Booking gagal dibuat",
+        message: "Failed to created Appointment",
         error: error.message
       });
     }
