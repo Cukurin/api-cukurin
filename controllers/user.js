@@ -59,7 +59,7 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const existedUser = await User.findOne({ email: req.body.email });
+      const existedUser = await User.findOne({ username: req.body.username });
       const valid = bcrypt.compareSync(req.body.password, existedUser.password);
 
       if (valid) {
