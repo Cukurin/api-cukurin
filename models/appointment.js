@@ -10,7 +10,8 @@ var appointmentSchema = new Schema({
       type:Schema.Types.ObjectId,
       ref: 'barbershops'
     },
-    services :String,
+    service :String,
+    date: Date,
     isDone: Boolean 
 },
 { timestamps: true }
