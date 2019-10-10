@@ -41,8 +41,8 @@ module.exports = {
         name: req.body.name,
         phoneNumber: req.body.phoneNumber,
         address: req.body.address,
-        lat: req.body.latitude,
-        lng: req.body.longitude,
+        lat: req.body.lat,
+        lng: req.body.lng,
         rating: req.body.rating,
         services: req.body.services,
         imageUrl: req.body.imageUrl
