@@ -83,28 +83,30 @@ module.exports = {
     );
   },
 
-  updateAppointment: (req, res) => {
-    Appointment.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: req.body.password,
-        email: req.body.email
-      },
-      function(err, result) {
-        if (err) {
-          res.status(400).send({
-            message: `error`,
-            err
-          });
-        } else {
-          res.status(200).send({
-            message: `update success`,
-            result
-          });
-        }
-      }
-    );
-  },
+  // updateAppointment: (req, res) => {
+  //   Appointment.findOneAndUpdate(
+  //     { _id: req.params.id },
+  //     {
+  //       user: getUser,
+  //       barbershop: getBarbershop,
+  //       service: req.body.service,
+  //       date: req.body.date,
+  //       isDone: req.body.isDone
+  //     },
+  //     function(err, result) {
+  //       if (err) {
+  //         res.status(400).send({
+  //           message: `error`,
+  //           err
+  //         });
+  //       } else {
+  //         res.status(200).send({
+  //           message: `update success`,
+  //           result
+  //         });
+  //       }
+  //     }
+  //   );
+  // },
+
 };
