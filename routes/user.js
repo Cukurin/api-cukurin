@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const{ addUser, getAllUser, deleteUser, updateUser, uploadImage, login } = require("../controllers/user")
+const{ addUser, getAllUser, getUserById, deleteUser, updateUser, uploadImage, login } = require("../controllers/user")
 const upload=require('../config/multer')
 const authentication = require("../helpers/auth")
 
@@ -10,6 +10,7 @@ const authentication = require("../helpers/auth")
 // router.get("/", authentication. tokenValid, getUser)
 
 router.get("/", getAllUser)
+router.get("/:id", getUserById)
 router.post("/", addUser)
 router.delete("/:id", deleteUser)
 router.put("/:id", updateUser)

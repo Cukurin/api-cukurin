@@ -14,6 +14,19 @@ module.exports = {
       .catch(error => console.log(error));
   },
 
+  getUserById: (req, res) => {
+    User.findOne({ _id: objectId(req.params.id) })
+      .then(result => {
+        res.send(result)
+      })
+      .catch(error => {
+        res.send({
+          message: 'User not found',
+          error: error.message
+        })
+      })
+  },
+
   addUser: async (req, res) => {
     try {
       const existedUser = await User.findOne({ email: req.body.email });
