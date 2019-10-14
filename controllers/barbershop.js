@@ -19,13 +19,15 @@ module.exports = {
   },
 
   getOneBarberShop: (req, res) => {
-    console.log(req.query)
+    console.log("aaaa"+req.query)
     Barbershops.findOne({ 
       _id: objectId(req.params.id) 
     })
       // .populate("address", "address -_id")
       .then(result => {
         res.send(result);
+        console.log(result);
+        
       })
       .catch(error => {
         res.status(400).send({
