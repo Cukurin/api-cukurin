@@ -79,17 +79,17 @@ module.exports = {
         const token = await jwt.sign({ data: existedUser }, "secretbycukurin", {
           expiresIn: "1h"
         });
-        res.send({
+        res.status(200).send({
           message: "success to login",
           token
         });
       } else {
-        res.send({
+        res.status(400).send({
           message: "user or password is not valid"
         });
       }
     } catch (error) {
-      res.send({
+      res.status(400).send({
         message: "User not found",
         error: error.message
       });
