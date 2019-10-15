@@ -1,6 +1,7 @@
 require("dotenv").config()
 const cors = require("cors");
 const express = require("express");
+const helmet = require('helmet');
 const db = require("./config/database");
 const bodyParser = require("body-parser");
 const { PORT } = require("./config/variableEnv");
@@ -16,6 +17,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("assets/images/"));
+app.use(helmet.frameguard({ action: "sameorigin" }));
+
 
 db.then(() => {
   console.log(`connected to database`);

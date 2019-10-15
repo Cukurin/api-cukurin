@@ -19,7 +19,8 @@ module.exports = {
   },
 
   getOneBarberShop: (req, res) => {
-    console.log("aaaa"+req.query)
+    console.log(req.params.id);
+    
     Barbershops.findOne({ 
       _id: objectId(req.params.id) 
     })

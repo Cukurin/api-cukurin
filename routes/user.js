@@ -9,8 +9,8 @@ const authentication = require("../helpers/auth")
 // authentication. tokenValid,
 // router.get("/", authentication. tokenValid, getUser)
 
-router.get("/", getAllUser)
 router.get("/:id", getUserById)
+router.get("/", getAllUser)
 router.post("/", addUser)
 router.delete("/:id", deleteUser)
 router.put("/:id", updateUser)

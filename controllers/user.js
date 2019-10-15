@@ -15,8 +15,11 @@ module.exports = {
   },
 
   getUserById: (req, res) => {
+    console.log(true)
     User.findOne({ _id: objectId(req.params.id) })
       .then(result => {
+        console.log(result);
+        
         res.send(result)
       })
       .catch(error => {
