@@ -7,7 +7,7 @@ const UserImage = require("../models/userImage");
 module.exports = {
   getAllUser: (req, res) => {
     User.find({})
-      // .populate("appointments", "-user -createdAt -updatedAt")
+      .populate("appointments", "-user -updatedAt")
       .then(result => {
         res.send(result);
       })
