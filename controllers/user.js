@@ -17,6 +17,7 @@ module.exports = {
   getUserById: (req, res) => {
     console.log(true)
     User.findOne({ _id: objectId(req.params.id) })
+      .populate("appointments", "appointments -_id,user")
       .then(result => {
         console.log(result);
         
