@@ -11,7 +11,7 @@ const authentication = require("../helpers/auth")
 
 router.get("/", getAllAppointment)
 router.get("/:id", getOneAppointment)
-router.post("/", addAppointment)
+router.post("/", authentication.tokenValid, addAppointment)
 router.delete("/:id", deleteAppointment)
 // router.put("/:id", updateAppointment)
 
