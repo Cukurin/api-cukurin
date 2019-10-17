@@ -35,6 +35,7 @@ module.exports = {
 
   //create new booking
   addAppointment: async (req, res) => {
+    console.log(req.body,"awkwakwak")
     try {
 
       const getUser = await User.findOne({ _id: objectId(req.body.user) })

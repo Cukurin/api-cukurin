@@ -15,20 +15,21 @@ module.exports = {
   },
 
   getUserById: (req, res) => {
-    console.log(true)
+    console.log(true);
     User.findOne({ _id: objectId(req.params.id) })
-      .populate("appointments", "appointments -_id,user")
+      // .populate("appointments", "-updatedAt -user")
+      .populate({ path: "appointments", populate: { path: "barbershop" } })
       .then(result => {
         console.log(result);
-        
-        res.send(result)
+
+        res.send(result);
       })
       .catch(error => {
         res.send({
-          message: 'User not found',
+          message: "User not found",
           error: error.message
-        })
-      })
+        });
+      });
   },
 
   addUser: async (req, res) => {
@@ -36,11 +37,10 @@ module.exports = {
       const existedUser = await User.findOne({ email: req.body.email });
 
       if (existedUser) {
-        console.log(error)
+        console.log(error);
         res.status(404).send({
           message: "user already exist, please continue to login",
-          error: error.message,
-          
+          error: error.message
         });
       } else {
         bcrypt.genSalt(10, function(err, salt) {
