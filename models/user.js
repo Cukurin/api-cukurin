@@ -12,7 +12,11 @@ var userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "appointments"
       }
-    ]
+    ],
+    comment: [{
+      type: Schema.Types.ObjectId,
+      ref: 'comments'
+    }]
   },
   { timestamps: true }
 );
