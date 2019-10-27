@@ -10,7 +10,6 @@ var barberShopSchema = new Schema({
   lng: Number,
   services: [String],
   imageUrl: String,
-  comment: [String]
   
 })
 

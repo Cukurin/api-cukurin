@@ -13,7 +13,7 @@ var userSchema = new Schema(
         ref: "appointments"
       }
     ],
-    comment: [{
+    comments: [{
       type: Schema.Types.ObjectId,
       ref: 'comments'
     }]

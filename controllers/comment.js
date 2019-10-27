@@ -20,13 +20,11 @@ module.exports = {
   addComment: async (req, res) => {
     console.log(req.body);
     try {
-      const getUser = await User.findOne({_id: objectId(req.body.user)})
       const getBarbershop = await Barbershops.findOne({_id:objectId(req.body.barbershop)})
 
       const newComment = await Comment.create({
         user: getUser,
         barbershop: getBarbershop,
-        date: req.body.date
       });
       const user = await User.findOneAndUpdate(
         {_id: objectId(req.body.user)},
