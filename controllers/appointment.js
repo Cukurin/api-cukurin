@@ -35,7 +35,7 @@ module.exports = {
 
   //create new booking
   addAppointment: async (req, res) => {
-    console.log(req.body,"awkwakwak")
+    
     try {
 
       const getUser = await User.findOne({ _id: objectId(req.body.user) })
@@ -84,30 +84,5 @@ module.exports = {
     );
   },
 
-  // updateAppointment: (req, res) => {
-  //   Appointment.findOneAndUpdate(
-  //     { _id: req.params.id },
-  //     {
-  //       user: getUser,
-  //       barbershop: getBarbershop,
-  //       service: req.body.service,
-  //       date: req.body.date,
-  //       isDone: req.body.isDone
-  //     },
-  //     function(err, result) {
-  //       if (err) {
-  //         res.status(400).send({
-  //           message: `error`,
-  //           err
-  //         });
-  //       } else {
-  //         res.status(200).send({
-  //           message: `update success`,
-  //           result
-  //         });
-  //       }
-  //     }
-  //   );
-  // },
-
+ 
 };
